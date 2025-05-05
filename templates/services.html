@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Services - Summarizer | AI-Powered Document Summarization</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-color);
+            background-color: #f5f7ff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: var(--secondary-color);
+            transform: scale(1.03);
+        }
+
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: var(--dark-color);
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .services-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+
+        .services-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .services-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            bottom: -10px;
+            left: 0;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 2rem;
+            border-left: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .service-text {
+            color: var(--gray-color);
+        }
+
+        .cta-section {
+            padding: 4rem 0;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+
+        .cta-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .services-title {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .services-hero,
+            .services-section {
+                padding: 3rem 0;
+            }
+
+            .services-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .services-title {
+                font-size: 1.8rem;
+            }
+
+            .services-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-scroll me-2"></i>Summarizer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signin">Sign In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="services-hero">
+        <div class="container position-relative">
+            <h1 class="services-title animate-slide-up">Our Services</h1>
+            <p class="services-subtitle animate-slide-up animate-delay-1">Discover how our AI-powered summarization
+                tools can transform your workflow and save you valuable time</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title text-center animate-fade-in">Comprehensive Summarization Solutions</h2>
+
+            <div class="row g-4">
+                <!-- Text Services -->
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-1">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <h3 class="service-title">Sentiment Analysis</h3>
+                        <p class="service-text">Identifies and classifies emotions (positive, negative, neutral) in text
+                            using advanced NLP and machine learning. Perfect for analyzing reviews, social media, and
+                            customer feedback.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-2">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="service-title">Text Summarization</h3>
+                        <p class="service-text">Condenses lengthy text into concise versions while retaining key
+                            information. Choose between extractive (key sentences) or abstractive (generated summaries)
+                            methods.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-3">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3 class="service-title">URL Summarization</h3>
+                        <p class="service-text">Extracts and summarizes key content from web pages, providing concise
+                            information for lengthy articles, news, or blogs—saving you hours of reading time.</p>
+                    </div>
+                </div>
+
+                <!-- Document Services -->
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-1">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="service-title">PDF Summarization</h3>
+                        <p class="service-text">Analyzes PDF documents to extract and present essential information.
+                            Ideal for academic papers, reports, and legal documents—get the gist without reading every
+                            page.</p>
+                    </div>
+                </div>
+
+                <!-- Audio/Video Services -->
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-2">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h3 class="service-title">Audio Summarization</h3>
+                        <p class="service-text">Converts spoken content into text and summarizes it to retain key
+                            points. Transform podcasts, lectures, or meetings into easily digestible content.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-3">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <h3 class="service-title">YouTube Summarization</h3>
+                        <p class="service-text">Downloads videos, extracts audio, converts to text, and provides concise
+                            summaries—perfect for educational content, tutorials, and long-form videos.</p>
+                    </div>
+                </div>
+
+                <!-- Specialized Services -->
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-1">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-microphone-alt"></i>
+                        </div>
+                        <h3 class="service-title">Summarization with Audio</h3>
+                        <p class="service-text">Extracts audio from various sources (URLs, PDFs, videos), converts to
+                            text, and generates concise summaries—all while maintaining the original context.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-2">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3 class="service-title">Custom Analytics</h3>
+                        <p class="service-text">Get insights beyond summaries with our custom analytics that highlight
+                            key themes, trends, and patterns in your content.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 animate-slide-up animate-delay-3">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="service-title">API Integration</h3>
+                        <p class="service-text">Integrate our summarization capabilities directly into your applications
+                            or workflows with our developer-friendly API.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title animate-fade-in">Ready to Transform Your Workflow?</h2>
+            <p class="cta-text animate-fade-in animate-delay-1">Our AI-powered summarization tools can save you hours of
+                reading and research time. Get started today and experience the difference.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/signin" class="btn btn-primary btn-lg animate-fade-in animate-delay-2">
+                    <i class="fas fa-rocket me-2"></i>Get Started
+                </a>
+                <a href="/contact" class="btn btn-outline-primary btn-lg animate-fade-in animate-delay-2">
+                    <i class="fas fa-question-circle me-2"></i>Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize animations when scrolling into view
+        document.addEventListener('DOMContentLoaded', function () {
+            const animateElements = document.querySelectorAll('.animate-slide-up, .animate-fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated');
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.classList.add('animate__fadeInUp');
+                        } else if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.classList.add('animate__fadeIn');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>

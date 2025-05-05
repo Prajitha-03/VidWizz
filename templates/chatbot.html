@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Video Summarization AI Assistant" />
+    <meta name="author" content="" />
+    <title>VIDEO SUMMARIZATION | AI Assistant</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/2491/2491917.png" />
+    <!-- Font Awesome icons -->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4bb543;
+            --bot-bubble: #e3f2fd;
+            --user-bubble: #dcf8c6;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fb;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        #mainNav {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        #mainNav .navbar-brand i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            margin-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .chat-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: calc(100vh - 180px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .chat-header i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                url('https://www.transparenttextures.com/patterns/clean-gray-paper.png');
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background-color: var(--bot-bubble);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+
+        .user-message {
+            background-color: var(--user-bubble);
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .chat-input {
+            padding: 15px;
+            background-color: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input textarea {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            padding: 12px 20px;
+            resize: none;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            max-height: 120px;
+        }
+
+        .chat-input textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .chat-input button {
+            margin-left: 12px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .chat-input button:active {
+            transform: translateY(0);
+        }
+
+        .typing-indicator {
+            display: flex;
+            padding: 10px 16px;
+            background-color: var(--bot-bubble);
+            border-radius: 18px;
+            width: fit-content;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #666;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .welcome-message p {
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .message {
+                max-width: 90%;
+            }
+
+            .chat-container {
+                height: calc(100vh - 160px);
+            }
+
+            .chat-input {
+                padding: 10px;
+            }
+
+            .chat-input textarea {
+                padding: 10px 15px;
+            }
+
+            .chat-input button {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                margin-top: 70px;
+                padding-bottom: 70px;
+            }
+
+            .message {
+                max-width: 95%;
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <a class="navbar-brand h1" href="/home">
+            <i class="fas fa-robot"></i>Summarization AI
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-2 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/home"><i class="fas fa-home me-1"></i>Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/youtube"><i class="fab fa-youtube me-1"></i>YouTube</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/pdf"><i class="fas fa-file-pdf me-1"></i>PDF</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/video"><i class="fas fa-video me-1"></i>Video</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/audio"><i class="fas fa-microphone me-1"></i>Audio</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/textsummary"><i
+                            class="fas fa-align-left me-1"></i>Text</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout"><i
+                            class="fas fa-sign-out-alt me-1"></i>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="chat-container animate__animated animate__fadeIn">
+                    <div class="chat-header">
+                        <i class="fas fa-comments"></i>
+                        <h5>Video Summarization Assistant</h5>
+                    </div>
+
+                    <div class="chat-messages" id="chatBox">
+                        {% if greet %}
+                        <div class="welcome-message animate__animated animate__fadeInUp">
+                            <h4><i class="fas fa-hand-wave"></i> Hello!</h4>
+                            <p>{{greet}}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if chat_history %}
+                        {% for row in chat_history %}
+                        <div class="message user-message animate__animated animate__fadeInRight">
+                            <p>{{row[0]}}</p>
+                            <div class="message-time">
+                                <i class="far fa-clock"></i> Just now
+                            </div>
+                        </div>
+
+                        <div class="message bot-message animate__animated animate__fadeInLeft">
+                            <p>{{row[1]}}</p>
+                            <div class="message-time">
+                                <i class="far fa-clock"></i> Just now
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <form method="post" action="/chatbot" class="chat-input">
+                        <textarea rows="1" class="form-control" name="query" id="query"
+                            placeholder="Ask me anything about video summarization..." required></textarea>
+                        <button type="submit"
+                            class="btn btn-primary animate__animated animate__pulse animate__infinite">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Auto-scroll to bottom of chat
+            const chatBox = document.getElementById('chatBox');
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Auto-resize textarea
+            const textarea = document.querySelector('textarea');
+            textarea.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            // Add typing indicator on form submit
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function () {
+                const chatBox = document.getElementById('chatBox');
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'typing-indicator';
+                typingIndicator.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                chatBox.appendChild(typingIndicator);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
