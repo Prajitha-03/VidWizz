@@ -20,7 +20,7 @@ def language_translate(text, to_lang):
     return text
 
 
-genai.configure(api_key='AIzaSyDQjn7bRYXaNCsea_qyZs8dyL-MJ9dj-J4')
+genai.configure(api_key='')
 gemini_model = genai.GenerativeModel('gemini-1.5-pro')
 chat = gemini_model.start_chat(history=[])
 
